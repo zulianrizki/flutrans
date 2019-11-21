@@ -108,8 +108,6 @@ public class FlutransPlugin implements MethodCallHandler, TransactionFinishedCal
   void paymentToken(String token) {
     try {
       Log.d(TAG, token);
-      UIKitCustomSetting setting = MidtransSDK.getInstance().getUIKitCustomSetting();
-      MidtransSDK.getInstance().setUIKitCustomSetting(setting);
       MidtransSDK.getInstance().startPaymentUiFlow(context,token);
     } catch(Exception e) {
       Log.d(TAG, "ERROR " + e.getMessage());
