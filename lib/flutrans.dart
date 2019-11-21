@@ -54,6 +54,15 @@ class Flutrans {
     await _channel.invokeMethod("payment", jsonEncode(transaction.toJson()));
     return Future.value(null);
   }
+  
+  Future<void> makePaymentToken(String token) async {
+    /*int total = 0;
+    transaction.items.forEach((v) => total += (v.price * v.quantity));
+    if (total != transaction.total)
+      throw "Transaction total and items total not equal";*/
+    await _channel.invokeMethod("paymentToken", token);
+    return Future.value(null);
+  }
 }
 
 class MidtransCustomer {
