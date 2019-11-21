@@ -52,6 +52,9 @@ public class FlutransPlugin implements MethodCallHandler, TransactionFinishedCal
     } else if(call.method.equals("payment")) {
       String str = call.arguments();
       payment(str);
+    } else if(call.method.equals("paymentToken")) {
+      String str = call.arguments();
+      paymentToken(str);
     } else {
       result.notImplemented();
     }
@@ -97,6 +100,17 @@ public class FlutransPlugin implements MethodCallHandler, TransactionFinishedCal
       MidtransSDK.getInstance().setUIKitCustomSetting(setting);
       MidtransSDK.getInstance().setTransactionRequest(transactionRequest);
       MidtransSDK.getInstance().startPaymentUiFlow(context);
+    } catch(Exception e) {
+      Log.d(TAG, "ERROR " + e.getMessage());
+    }
+  }
+  
+  void paymentToken(String token) {
+    try {
+      Log.d(TAG, str);
+      UIKitCustomSetting setting = MidtransSDK.getInstance().getUIKitCustomSetting();
+      MidtransSDK.getInstance().setUIKitCustomSetting(setting);
+      MidtransSDK.getInstance().startPaymentUiFlow(context,token);
     } catch(Exception e) {
       Log.d(TAG, "ERROR " + e.getMessage());
     }
