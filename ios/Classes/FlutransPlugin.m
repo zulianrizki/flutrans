@@ -91,7 +91,20 @@ FlutterMethodChannel* channel;
            }];
           return result(0);
       }
-  } else {
+  } else if([@"paymentToken" isEqualToString:call.method]) {
+    NSString *str = call.arguments;
+    [[MidtransMerchantClient shared] requestTransacationWithCurrentToken:str completion:^(MidtransTransactionTokenResponse *token, NSError *error)
+           {
+               if (token) {
+                   MidtransUIPaymentViewController *vc = [[MidtransUIPaymentViewController new] initWithToken:token];
+                   vc.paymentDelegate = delegate;
+                   UIViewController *viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+                   [viewController presentViewController:vc animated:YES completion:nil];
+               }
+           }];
+          return result(0);
+  }
+    else {
     result(FlutterMethodNotImplemented);
   }
 }
